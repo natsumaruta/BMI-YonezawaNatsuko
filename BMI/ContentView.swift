@@ -10,9 +10,8 @@ import SwiftUI
 struct ContentView: View {
     @State private var height: Double? = nil
     @State private var weight: Double? = nil
-    
     @State private var selectUnit: String = "meter"
-    
+    @FocusState private var isFocused: Bool
     let selctedUnits = ["meter","centimeter"]
     
     
@@ -22,6 +21,19 @@ struct ContentView: View {
                 Section{
                     HStack{
                         TextField("身長を入力",value: $height,format: .number)
+                            .focused($isFocused)
+                            .toolbar {
+                                ToolbarItem(placement: .keyboard) {
+                                    HStack{
+                                        Spacer()
+                                        Button {
+                                            isFocused = false
+                                        } label: {
+                                            Text("Done")
+                                        }
+                                    }
+                                }
+                            }
                             .keyboardType(.decimalPad)
                         Picker("", selection: $selectUnit) {
                             ForEach(selctedUnits, id:\.self) { unit in
@@ -35,6 +47,7 @@ struct ContentView: View {
                     HStack{
                         TextField("体重を入力",value: $weight,format: .number)
                             .keyboardType(.decimalPad)
+                            .focused($isFocused)
                         Text("Kg")
                     }
                     .padding([.leading, .trailing], 8)
