@@ -22,6 +22,7 @@ struct ContentView: View {
                 Section{
                     HStack{
                         TextField("身長を入力",value: $height,format: .number)
+                            .keyboardType(.decimalPad)
                         Picker("", selection: $selectUnit) {
                             ForEach(selctedUnits, id:\.self) { unit in
                                 Text(unit)
@@ -33,6 +34,7 @@ struct ContentView: View {
                     
                     HStack{
                         TextField("体重を入力",value: $weight,format: .number)
+                            .keyboardType(.decimalPad)
                         Text("Kg")
                     }
                     .padding([.leading, .trailing], 8)
